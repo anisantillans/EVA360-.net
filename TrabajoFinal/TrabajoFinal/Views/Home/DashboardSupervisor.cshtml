@@ -1,0 +1,19 @@
+﻿@model TrabajoFinal.ViewModels.Home.DashboardSupervisorViewModel
+@{
+    ViewBag.Title = "Dashboard Supervisor";
+    ViewBag.PageIcon = "tachometer";
+}
+
+
+<div class="col-md-6 col-lg-3">
+    <div class="widget-bg-color-icon card-box fadeInDown animated">
+        <div class="bg-icon bg-icon-custom pull-left">
+            <i class="fa fa-user"></i>
+        </div>
+        <div class="text-right">
+            <h3 class="text-dark"><b class="counter">@Model.CantEmpleados</b></h3>
+            <p class="text-muted">Empleados</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

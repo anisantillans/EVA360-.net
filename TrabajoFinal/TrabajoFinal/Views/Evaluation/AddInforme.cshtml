@@ -1,0 +1,33 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddInformeViewModel
+@{
+    ViewBag.Title = "Subir Informe 360";
+    ViewBag.PageIcon = "download";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <br/>
+                <form enctype="multipart/form-data"  method="POST">
+                    <b>Informe 360:</b><br />
+                    
+                    <input type="file" name="Archivo" />
+                    <br />
+                    <label class="col-lg-2 control-label">&nbsp;</label>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Guardar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+

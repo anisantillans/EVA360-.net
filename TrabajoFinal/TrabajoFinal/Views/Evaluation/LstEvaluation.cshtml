@@ -1,0 +1,125 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.LstEvaluationViewModel
+@{
+    ViewBag.Title = "Lista de Evaluaciones";
+    ViewBag.PageIcon = "check-circle";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <p class="text-muted font-13 m-b-30">
+                </p>
+                <div class="row">
+                    
+                    <div class="col-lg-9">
+                        @if (Convert.ToString(Session["Rol"]) == "SUP")
+                        {
+                        <a href="@Url.Action("AddEvaluationFast")" class="btn btn-default buttons-copy buttons-html5 btn-sm"><span>Calificacion rápida</span></a>
+                        <a href="@Url.Action("AddEditEvaluation")" class="btn btn-default buttons-copy buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons"><span>Agregar evaluacion</span></a>
+                        }
+                        
+                    </div>
+                </div>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Periodo</th>
+                            
+                            <th>Supervisor</th>
+                            <th>Empleado</th>
+                            <th>Suma de Puntaje</th>
+                            <th>Informe 360</th>
+                            <th>Calificacion</th>
+                        </tr>
+                    </thead>
+                    @foreach (var evalu in Model.LstEvaluation)
+                    {
+                        <tr>
+                            <td>@evalu.Nombre</td>
+                            <td>@evalu.Periodo.Nombre</td>
+                           
+                            <td>@(evalu.Supervisor.Usuario.Nombre+" "+evalu.Supervisor.Usuario.Apellido)</td>
+                            <td>@(evalu.Empleado.Usuario.Nombre + " " + evalu.Empleado.Usuario.Apellido)</td>
+                            <td>@evalu.EvalucionTema.Sum(x=>x.Puntaje)</td>
+                            @if (Convert.ToString(Session["Rol"]) == "PRO" && evalu.RutaInforme==null)
+                            {
+                                <td>
+                                    <a href="@Url.Action("AddInforme",new { EvaluacionId = evalu.EvaluacionId})" class="btn btn-primary btn-sm">Subir</a>
+                                 </td>
+                            }
+                            @if (Convert.ToString(Session["Rol"]) == "SUP")
+                            {
+                                <td>
+                                 @if (!String.IsNullOrEmpty(evalu.RutaInforme)){ 
+                                    <a href="@Url.Content("~/Content/INF/" + evalu.RutaInforme)" class="btn btn-info btn-sm"><i class="fa fa-download"></i> Descargar</a>
+                                 }
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Calificar", new { EvaluacionId=evalu.EvaluacionId}) " class="btn btn-default btn-sm">Calificar Completo</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    TableManageButtons.init();
+
+</script>
+
+@section Scripts{
+    <script>
+        $('.rd').on('click', function () {
+            var id = $(this).attr('data-value');
+            $('#informe').attr('href', '@Url.Action("AddEditObjetivo")' + '?EvaluationId=' + id);
+        });
+    </script>
+}
+
+
+
+
+

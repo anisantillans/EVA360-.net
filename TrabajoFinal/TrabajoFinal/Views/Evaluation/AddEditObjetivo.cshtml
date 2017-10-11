@@ -1,0 +1,66 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddEditObjetivoViewModel
+@{
+    ViewBag.Title = " Registar Objetivo";
+    ViewBag.PageIcon = "diamond";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Objetivo</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.ObjetivoId)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Nombre) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Nombre)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Orden) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Orden, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Orden)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" ></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Descripcion) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Descripcion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Descripcion)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.PeriodoId) <span class="required">*</span>
+                                @Html.DropDownListFor(x => x.PeriodoId,
+                                new SelectList(Model.LstPeriodo,
+                                "PeriodoId", "Nombre"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PeriodoId)
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstObjetivo")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,108 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddEvaluationFastViewModel
+@{
+    ViewBag.Title = "Evaluación rápida";
+    ViewBag.PageIcon = "check-circle";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Evaluacion rapida</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.PeriodoId)
+                       
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Empleado <span class="required">*</span></b>
+                                @Html.DropDownListFor(x => x.EmpleadoId,
+                                new SelectList(Model.LstEmpleado,
+                                "UsuarioId", "Nombre"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.EmpleadoId)
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Objetivo <span class="required">*</span></b>
+                                @Html.DropDownListFor(x => x.ObjetivoId,
+                                new SelectList(Model.LstObjetivo,
+                                "ObjetivoId", "Nombre"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.ObjetivoId)
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Tema <span class="required">*</span></b>
+                                @Html.DropDownListFor(x => x.TemaId,
+                                new SelectList(Model.LstTema,
+                                "TemaId", "Nombre"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.TemaId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div id="puntuacion" style="display:none" class="col-md-12">
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="0" /> 0
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="1" /> 1
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="2" /> 2
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="3" /> 3
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="4" /> 4
+                                <input name="@Html.NameFor(x => x.Puntaje)" id="@Html.IdFor(x => x.Puntaje)" type="radio" value="5" /> 5
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstEvaluation")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#ObjetivoId').on('change', function () {
+
+            var model = {};
+            model['ObjetivoId'] = $('#ObjetivoId').val();
+            model['PeriodoId'] = '@Model.PeriodoId';
+            model['EmpleadoId'] = $('#EmpleadoId').val();
+
+            $.ajax({
+                url:'@Url.Action("GetTemasPorObjetivo","Evaluation")',
+                type: 'POST',
+                data: model,
+                success: function (resultado) {
+                    $('#TemaId').html('');
+                    var plantilla = '';
+                    for (var i = 0 ; i < resultado.length ; i++) {
+                        $('#TemaId').append('<option value="' + resultado[i].TemaId + '">' + resultado[i].Nombre + '</option>');
+                    }
+                    if (resultado.length > 0) {
+                        $('#puntuacion').show();
+                        $('#aceptar').show();
+                    }
+                    else {
+                        $('#puntuacion').hide();
+                        $('#aceptar').hide();
+                    }
+
+                }
+            });
+        });
+    </script>
+}

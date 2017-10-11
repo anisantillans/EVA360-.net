@@ -1,0 +1,53 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddEditPeriodoViewModel
+@{
+    ViewBag.Title = "Registrar Periodo";
+    ViewBag.PageIcon = "clock-o";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Periodo</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.PeriodoId)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Nombre) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Nombre)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.FechaInicio) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.FechaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datetime" })
+                                @Html.ValidationMessageFor(x => x.FechaInicio)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.FechaFin) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.FechaFin, "{0:dd/MM/yyyy}", new { @class = "form-control datetime" })
+                                @Html.ValidationMessageFor(x => x.FechaFin)
+                            </div>
+                        </div>
+                        
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstPeriodo")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

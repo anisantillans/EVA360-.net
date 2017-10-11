@@ -1,0 +1,108 @@
+﻿@model TrabajoFinal.ViewModels.Manager.AddEditManagerViewModel
+@{
+    ViewBag.Title = "Registrar Supervisor";
+    ViewBag.PageIcon = "gavel";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Empleado</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.SupervisorId)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Nombre) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Nombre)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Apellido) <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Apellido, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Apellido)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Codigo)  <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.Codigo, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Codigo)
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Fecha de Nacimiento <span class="required">*</span></b>
+                                @Html.TextBoxFor(x => x.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datetime" })
+                                @Html.ValidationMessageFor(x => x.FechaNacimiento)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.Sexo)<span class="required">*</span>
+                                @Html.DropDownListFor(x => x.Sexo,
+                                new SelectList(Model.LstSexo,
+                                "Value", "Text"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Sexo)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Tipo de Documento <span class="required">*</span></b>
+                                @Html.DropDownListFor(x => x.TipoDocumentoId,
+                                new SelectList(Model.LstTipoDocumentos,
+                                "TipoDocumentoId", "Sigla"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.TipoDocumentoId)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b>Documento <span class="required">*</span></b>
+                                @Html.TextBoxFor(x => x.NroDocumento, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.NroDocumento)
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b> Email <span class="required">*</span></b>
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Email)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <b> Password <span class="required">*</span></b>
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Password)
+                            </div>
+                        </div>
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstManager")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

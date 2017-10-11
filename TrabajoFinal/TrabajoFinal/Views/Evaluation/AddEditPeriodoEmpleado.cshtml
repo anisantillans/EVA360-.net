@@ -1,0 +1,40 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddEditPeriodoEmpleadoViewModel
+@{
+    ViewBag.Title = "Registrar Periodo Empleado";
+    ViewBag.PageIcon = "clock-o";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Periodo Empleado"</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.EmpleadoPeriodoId)
+                        @Html.HiddenFor(x => x.PeriodoId)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @Html.LabelFor(x => x.EmpleadoId) <span class="required">*</span>
+                                @Html.DropDownListFor(x => x.EmpleadoId,
+                                new SelectList(Model.LstUsuario,
+                                "UsuarioId", "Codigo"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.EmpleadoId)
+                            </div>
+                        </div>                       
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstPeriodoEmpleado",new { PeriodoId = Model.PeriodoId})" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

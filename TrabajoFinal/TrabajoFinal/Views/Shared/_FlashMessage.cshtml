@@ -1,0 +1,9 @@
+﻿@{
+    var flashMessage = TempData["FlashMessage"];
+    if (flashMessage != null)
+    {
+        <div class="@TempData["FlashMessageType"]">
+            @flashMessage
+        </div>
+    }
+}

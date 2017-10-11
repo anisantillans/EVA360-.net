@@ -1,0 +1,46 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.AddEditEvaluationViewModel
+
+@{
+    ViewBag.Title = "Registrar Evaluacion";
+    ViewBag.PageIcon = "check-circle";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Registrar Evaluacion</b></h4>
+            Complete los campos.
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.evaluacionId)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                Nombre <span class="required">*</span>
+                                @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                Empleado <span class="required">*</span>
+                                @Html.DropDownListFor(x => x.empleadoId,
+                                new SelectList(Model.LstUsuario, "Value", "Text"),
+                                 "[-SELECCIONE-]", new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <br>
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstEvaluation")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

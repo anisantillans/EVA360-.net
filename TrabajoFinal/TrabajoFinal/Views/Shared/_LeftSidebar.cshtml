@@ -1,0 +1,85 @@
+﻿
+
+
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            <ul>
+
+                <li class="text-muted menu-title">Navigation</li>
+
+                @if (Convert.ToString(Session["Rol"]) == "EMP")
+                {
+                    <li>
+                        <a href="@Url.Action("DashboardEmpleado", "Home")" class="waves-effect"><i class="fa fa-tachometer"></i> <span> Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="ti-home"></i> <span> Puntos Acumulados por objetivo </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("PuntosAcumulados","Evaluation")" class="waves-effect"><i class="ti-home"></i> <span> Puntos periodo </span> </a>
+                    </li>
+                }
+                else if (Convert.ToString(Session["Rol"]) == "SUP")
+                {
+                    <li>
+                        <a href="@Url.Action("DashboardSupervisor", "Home")" class="waves-effect"><i class="fa fa-tachometer"></i> <span> Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstEmployee", "Employee")" class="waves-effect"><i class="fa fa-user"></i> <span> Empleados</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstPeriodo", "Evaluation")" class="waves-effect"><i class="fa fa-clock-o"></i> <span> Periodos </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstObjetivo", "Evaluation")" class="waves-effect"><i class="fa fa-diamond"></i> <span> Objetivos </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstTema", "Evaluation")" class="waves-effect"><i class="fa fa-bookmark"></i> <span> Temas </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstEvaluation","Evaluation" )" class="waves-effect"><i class="fa fa-check-circle"></i> <span> Evaluacion</span> </a>
+                    </li>
+                }
+                else if (Convert.ToString(Session["Rol"]) == "PRO")
+                {
+                    <li>
+                        <a href="@Url.Action("DashboardProveedor", "Home")" class="waves-effect"><i class="fa fa-tachometer"></i> <span> Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstEvaluation","Evaluation" )" class="waves-effect"><i class="fa fa-check-circle"></i> <span> Evaluacion</span> </a>
+                    </li>
+                }
+                else if (Convert.ToString(Session["Rol"]) == "ADM")
+                {
+                    <li>
+                        <a href="@Url.Action("DashboardAdmin", "Home")" class="waves-effect"><i class="fa fa-tachometer"></i> <span> Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstManager", "Manager")" class="waves-effect"><i class="fa fa-gavel"></i> <span> Supervisores</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstProveedor", "Supplier")" class="waves-effect"><i class="fa fa-cube"></i> <span> Provedores</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstEmployee", "Employee")" class="waves-effect"><i class="fa fa-user"></i> <span> Empleados</span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstPeriodo", "Evaluation")" class="waves-effect"><i class="fa fa-clock-o"></i> <span> Periodos </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstObjetivo", "Evaluation")" class="waves-effect"><i class="fa fa-diamond"></i> <span> Objetivos </span> </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LstTema", "Evaluation")" class="waves-effect"><i class="fa fa-bookmark"></i> <span> Temas </span> </a>
+                    </li>
+                }
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

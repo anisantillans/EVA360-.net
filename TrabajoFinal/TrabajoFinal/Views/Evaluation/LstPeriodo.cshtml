@@ -1,0 +1,107 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.LstPeriodoViewModel
+@{
+    ViewBag.Title = "Lista de Periodos";
+    ViewBag.PageIcon = "clock-o";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <p class="text-muted font-13 m-b-30">
+                </p>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <a href="@Url.Action("AddEditPeriodo")" class="btn btn-default buttons-copy buttons-html5 btn-sm"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+                        <a id="edit" href="#" class="btn btn-white buttons-csv buttons-html5 btn-sm"><i class="fa fa-edit"></i> <span>Editar</span></a>
+                    </div>
+                    <div class="col-lg-1 pull-right">
+                        <a id="elim" href="#" class="btn btn-danger buttons-pdf buttons-html5 btn-sm"><i class="fa fa-trash"></i> <span>Eliminar</span></a>
+                    </div>
+                </div>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Estado</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    @foreach (var periodo in Model.LstPeriodo)
+                    {
+                        <tr>
+                           
+                            <td class="col-lg-1">
+                                <center>
+                                    <a class="btn btn-primary" href="@Url.Action("LstPeriodoEmpleado",new { PeriodoId = periodo.PeriodoId})"><i class="fa fa-users"></i> Empleados</a>
+                                </center>
+                            </td>
+                            
+                            <td>@periodo.Nombre</td>
+                            <td>@periodo.FechaInicio.ToShortDateString()</td>
+                            <td>@periodo.FechaFin.ToShortDateString()</td>
+                            <td><span class="label label-@(periodo.Estado == "ACT" ? "success" : "danger")">@(periodo.Estado == "ACT" ? "ACTIVO" : "INACTIVO")</span></td>
+                            <td>
+                                <input name="seleccion" type="radio" class="rd" data-value="@periodo.PeriodoId" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    TableManageButtons.init();
+
+</script>
+
+@section Scripts{
+    <script>
+        $('.rd').on('click', function () {
+            var id = $(this).attr('data-value');
+            $('#edit').attr('href', '@Url.Action("AddEditPeriodo")' + '?PeriodoId=' + id);
+            $('#elim').attr('href', '@Url.Action("EliminarPeriodo")' + '?PeriodoId=' + id);
+        });
+    </script>
+}

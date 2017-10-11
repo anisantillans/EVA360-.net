@@ -1,0 +1,90 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.CalificarViewModel
+@{
+    ViewBag.Title = "Registrar Evaluacion Tema";
+    ViewBag.PageIcon = "check-circle";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h class="m-t-0 header-title"><b>Calificar Evaluacion</b></h>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.evaluacionTemaId)
+
+                        <!--EVALUACION-->
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <b>Evaluacion :<span class="required"></span></b>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                @Html.TextBoxFor(x => x.evaluacionId)
+                            </div>
+                        </div>
+                        <!--PERIODO-->
+                        <div class="form-group">
+
+                            <div class="col-md-10">
+                                <b>Periodo :<span class="required"></span></b>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                @Html.TextBoxFor(x => x.nombrePeriodo)
+                            </div>
+                        </div>
+                        <!--OBJETIVOS Y TEMAS-->
+                        <div class="form-group">
+                            @{var h = 0; }
+                            @foreach (var objetivo in Model.LstObjetivo)
+                            {
+                                <label class="col-md-3 control-label"></label>
+                                <fieldset>
+                                    &nbsp;
+                                    <div>
+                                        <h1>@objetivo.Nombre</h1>
+                                    </div>
+                                    <div>
+                                        <br>
+                                        @foreach (var tema in objetivo.Tema)
+                                        {
+                                            <div>
+                                                @tema.Nombre
+                                                <div>
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="0" /> 0
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="1" /> 1
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="2" checked /> 2
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="3" /> 3
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="4" /> 4
+                                                    <input name="@Html.NameFor(x => x.LstPuntuacion[h])" id="@Html.IdFor(x => x.LstPuntuacion[h])" type="radio" value="5" /> 5
+                                                </div>
+
+                                            </div>
+                                            <br />
+                                            h++;
+                                        }
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+
+
+                        <!--BOTONES-->
+                        <br>
+                        <label class="col-md-2 control-label">&nbsp;</label>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-default btn-rounded waves-effect waves-light">Aceptar</button>
+                            <a href="@Url.Action("LstEvaluation")" class="btn btn-danger btn-rounded waves-effect waves-light">Cancelar </a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

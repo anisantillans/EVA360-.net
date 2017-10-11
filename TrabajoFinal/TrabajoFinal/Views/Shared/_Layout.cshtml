@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>EVA 360</title>
+    @Styles.Render("~/bundles/css")
+</head>
+
+<body class="fixed-left">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        @{Html.RenderPartial("_TopBar"); }
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        @{Html.RenderPartial("_LeftSidebar");}
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+                <div class="container">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @if (ViewBag.Title != null)
+                            {
+                                <h4 class="page-title"><i class="fa fa-@ViewBag.PageIcon"></i> @ViewBag.Title</h4>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        @{ Html.RenderPartial("_FlashMessage");}
+                        @RenderBody()
+                    </div>
+                </div>
+                <!-- end row -->
+            </div> <!-- container -->
+        </div>
+        <footer class="footer text-right">
+            © 2017 UPC.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+    </div>
+    <!-- END wrapper -->
+    
+    @Scripts.Render("~/bundles/js")
+    <script>
+        $('.datetime').datepicker({
+            format: "dd/mm/yyyy",
+            language: "es",
+            autoclose: true
+        });
+        $('[data-val-required]').attr('required', 'required');
+
+    </script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

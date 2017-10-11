@@ -1,0 +1,113 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.LstPeriodoEmpleadoViewModel
+@{
+    ViewBag.Title = "Lista de Empleados Por Periodo";
+    ViewBag.PageIcon = "clock-o";
+}
+
+<div class="container">
+
+    <!-- Page-Title -->
+
+    <div class="row">
+        <div class="well">
+            <label>PERIODO: @Model.Periodo.Nombre </label><br />
+            <label>FECHA INICIO: @Model.Periodo.FechaInicio.ToShortDateString()</label> <br />
+            <label>FECHA FIN: @Model.Periodo.FechaFin.ToShortDateString()</label> <br />
+        </div>
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <p class="text-muted font-13 m-b-30">
+                </p>
+                <div class="row">
+                    
+                    <div class="col-lg-9">
+                        @if (Model.Periodo.FechaFin > DateTime.Now)
+                        {
+                        <a href="@Url.Action("AddEditPeriodoEmpleado", new { PeriodoId = Model.PeriodoId })" class="btn btn-default buttons-copy buttons-html5 btn-sm"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+                        }
+                         <a id="edit" href="#" class="btn btn-white buttons-csv buttons-html5 btn-sm"><i class="fa fa-edit"></i> <span>Editar</span></a
+                     </div>
+                    <div class="col-lg-1 pull-right">
+                        <a id="elim" href="#" class="btn btn-danger buttons-pdf buttons-html5 btn-sm"><i class="fa fa-trash"></i> <span>Eliminar</span></a>
+                    </div>
+                </div>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Tipo Documento</th>
+                            <th>Nro. Documento</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.LstPeriodo)
+                    {
+                        <tr>
+                            <td>@item.Empleado.Usuario.Nombre @item.Empleado.Usuario.Apellido </td>
+                            <td>@item.Empleado.Usuario.TipoDocumento.Sigla</td>
+                            <td>@item.Empleado.Usuario.NroDocumento</td>
+                            <td>
+                                <input name="seleccion" type="radio" class="rd" data-value="@item.EmpleadoPeriodoId" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <div class="col-md-10">
+                    <a href="@Url.Action("LstPeriodo")" class="btn btn-white btn-rounded waves-effect waves-light"><i class="fa fa-arrow-left"></i> Atrás</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    TableManageButtons.init();
+
+</script>
+
+@section Scripts{
+    <script>
+        $('.rd').on('click', function () {
+            var id = $(this).attr('data-value');
+            $('#edit').attr('href', '@Url.Action("AddEditPeriodoEmpleado")' + '?EmpleadoPeriodoId=' + id);
+            $('#elim').attr('href', '@Url.Action("EliminarPeriodoEmpleado")' + '?EmpleadoPeriodoId=' + id);
+        });
+    </script>
+}

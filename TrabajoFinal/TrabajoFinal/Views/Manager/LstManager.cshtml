@@ -1,0 +1,105 @@
+﻿@model TrabajoFinal.ViewModels.Manager.LstManagerViewModel
+@{
+    ViewBag.Title = "Lista de Supervisores";
+    ViewBag.PageIcon = "gavel";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <p class="text-muted font-13 m-b-30">
+                </p>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <a href="@Url.Action("AddEditManager")" class="btn btn-default buttons-copy buttons-html5 btn-sm"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+                        <a id="edit" href="#" class="btn btn-white buttons-csv buttons-html5 btn-sm"><i class="fa fa-edit"></i> <span>Editar</span></a>
+                    </div>
+                    <div class="col-lg-1 pull-right">
+                        <a id="elim" href="#" class="btn btn-danger buttons-pdf buttons-html5 btn-sm"><i class="fa fa-trash"></i> <span>Eliminar</span></a>
+                    </div>
+                </div>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombres y Apellidos</th>
+                            <th>Código</th>
+                            <th>Tipo Documento</th>
+                            <th>Nro. Documento</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    @foreach (var supervisor in Model.LstSupervisor)
+                    {
+                        <tr>
+                            <td>@(supervisor.Usuario.Nombre + " " + supervisor.Usuario.Apellido) </td>
+                            <td>@supervisor.Usuario.Codigo</td>
+                            <td>@supervisor.Usuario.TipoDocumento.Sigla</td>
+                            <td>@supervisor.Usuario.NroDocumento</td>
+                            <td>@supervisor.Usuario.Email</td>
+                            <td><span class="label label-@(supervisor.Usuario.Estado == "ACT" ? "success" : "danger")">@(supervisor.Usuario.Estado == "ACT" ? "ACTIVO" : "INACTIVO")</span></td>
+                            <td>
+                                <input name="seleccion" type="radio" class="rd" data-value="@supervisor.SupervisorId" />
+                            </td>
+                        </tr>
+                    }
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    TableManageButtons.init();
+
+</script>
+
+@section Scripts{
+    <script>
+        $('.rd').on('click', function () {
+            var id = $(this).attr('data-value');
+            $('#edit').attr('href', '@Url.Action("AddEditManager")' + '?SupervisorId=' + id);
+            $('#elim').attr('href', '@Url.Action("EliminarManager")' + '?SupervisorId=' + id);
+        });
+    </script>
+}

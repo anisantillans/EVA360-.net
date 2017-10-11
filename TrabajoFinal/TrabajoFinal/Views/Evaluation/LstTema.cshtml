@@ -1,0 +1,100 @@
+﻿@model TrabajoFinal.ViewModels.Evaluation.LstTemaViewModel
+@{
+    ViewBag.Title = "Lista de Temas";
+    ViewBag.PageIcon = "bookmark";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <h4 class="m-t-0 header-title"><b>Resultados Obtenidos</b></h4>
+                <p class="text-muted font-13 m-b-30">
+                </p>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <a href="@Url.Action("AddEditTema")" class="btn btn-default buttons-copy buttons-html5 btn-sm"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+                        <a id="edit" href="#" class="btn btn-white buttons-csv buttons-html5 btn-sm"><i class="fa fa-edit"></i> <span>Editar</span></a>
+                    </div>
+
+                </div>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Objetivo Id</th>
+                            <th>Orden</th>
+                            <th>Descripcion</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    @foreach (var tema in Model.LstTema)
+                    {
+                        <tr>
+                            <td>@tema.Nombre</td>
+                            <td>@tema.Objetivo.ObjetivoId</td>
+                            <td>@tema.Orden</td>
+                            <td>@tema.Descripcion</td>
+                            <td>
+                                <input name="seleccion" type="radio" class="rd" data-value="@tema.TemaId" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({ keys: true });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-colvid').DataTable({
+            "dom": 'C<"clear">lfrtip',
+            "colVis": {
+                "buttonText": "Change columns"
+            }
+        });
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+        var table = $('#datatable-fixed-col').DataTable({
+            scrollY: "300px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: {
+                leftColumns: 1,
+                rightColumns: 1
+            }
+        });
+    });
+    TableManageButtons.init();
+
+</script>
+
+@section Scripts{
+    <script>
+        $('.rd').on('click', function () {
+            var id = $(this).attr('data-value');
+            $('#edit').attr('href', '@Url.Action("AddEditTema")' + '?TemaId=' + id);
+        });
+    </script>
+}
+
+
+
+
